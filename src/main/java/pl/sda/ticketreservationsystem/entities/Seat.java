@@ -24,4 +24,12 @@ public class Seat {
     public void setSeatId(SeatId seatId) {
         this.seatId = seatId;
     }
+
+    public CinemaHall getCinemaHall() {
+        return cinemaHall;
+    }
+
+    public void setCinemaHall(CinemaHall cinemaHall) {
+        this.cinemaHall = cinemaHall;
+    }
 }
