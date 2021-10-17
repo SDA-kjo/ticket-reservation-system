@@ -9,6 +9,7 @@ import pl.sda.ticketreservationsystem.entities.Seat;
 import pl.sda.ticketreservationsystem.entities.SeatId;
 import pl.sda.ticketreservationsystem.hibernate.HibernateUtil;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class ReservationSystem {
         /**
          * Wywołamy to jednorazowo, zeby uzupelnic baze danych
          */
-        initMovies(session);
-        initCinemaHalls(session);
+//        initMovies(session);
+//        initCinemaHalls(session);
         //initSeanse(session);
 
         /**
@@ -97,7 +98,21 @@ public class ReservationSystem {
     }
 
     public static void initSeanse(Session session) {
-        // stworzcie 5 seasow
+        Seans seans1 = new Seans();
+        seans1.setId(1);
+        seans1.setTimeOfTheShow(LocalDateTime.of(2021, 10, 18, 18, 0));
+        seans1.setCinemaHall(getCinemaHall(session, 1));
+        seans1.setMovie(getMovie(session, 1));
+        session.save(seans1);
+    }
+
+
+    public static CinemaHall getCinemaHall(Session session, int id) {
+        return (CinemaHall) session.createQuery("from CinemaHall where id = " + id).uniqueResult();
+    }
+
+    public static Movie getMovie(Session session, int id) {
+        return (Movie) session.createQuery("from Movie where id = " + id).uniqueResult();
     }
 
     public static void buyTicketForSeansForCustomer(Customer customer, Seans seans) {
